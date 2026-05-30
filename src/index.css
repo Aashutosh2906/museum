@@ -1,0 +1,239 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Speak with Leonardo — Renaissance museum design system.
+   All colors are HSL. Tokens drive every surface. */
+
+@layer base {
+  :root {
+    /* Parchment & ink palette */
+    --background: 36 35% 93%;          /* #F5F0E8 warm parchment */
+    --foreground: 18 50% 12%;          /* #2C1810 ink brown */
+
+    --card: 36 40% 96%;
+    --card-foreground: 18 50% 12%;
+
+    --popover: 36 40% 96%;
+    --popover-foreground: 18 50% 12%;
+
+    --primary: 225 47% 33%;            /* #2C3E7A deep Renaissance blue */
+    --primary-foreground: 36 45% 96%;
+
+    --secondary: 36 28% 86%;
+    --secondary-foreground: 18 50% 12%;
+
+    --muted: 36 25% 88%;
+    --muted-foreground: 18 25% 30%;
+
+    --accent: 42 74% 31%;              /* #8B6914 antique gold */
+    --accent-foreground: 36 45% 96%;
+
+    --destructive: 0 60% 40%;
+    --destructive-foreground: 36 45% 96%;
+
+    --border: 36 30% 75%;
+    --input: 36 30% 80%;
+    --ring: 42 74% 31%;
+
+    --radius: 0.25rem;
+
+    /* Leonardo-specific tokens */
+    --ink: 18 50% 12%;
+    --ink-soft: 18 35% 25%;
+    --sepia: 28 40% 35%;
+    --parchment: 36 35% 93%;
+    --parchment-deep: 36 30% 86%;
+    --parchment-glow: 38 50% 96%;
+    --gold: 42 74% 31%;
+    --gold-soft: 42 55% 55%;
+    --renaissance-blue: 225 47% 33%;
+
+    /* Gradients & shadows */
+    --gradient-parchment: radial-gradient(ellipse at center, hsl(38 50% 96%) 0%, hsl(36 35% 90%) 70%, hsl(34 30% 82%) 100%);
+    --gradient-gold: linear-gradient(135deg, hsl(42 74% 31%) 0%, hsl(42 55% 45%) 50%, hsl(42 74% 31%) 100%);
+    --gradient-ink: linear-gradient(180deg, hsl(18 50% 12%) 0%, hsl(18 35% 18%) 100%);
+
+    --shadow-codex: 0 24px 60px -20px hsl(18 50% 12% / 0.35), 0 8px 24px -8px hsl(18 50% 12% / 0.2);
+    --shadow-quill: 0 2px 12px -2px hsl(42 74% 31% / 0.4);
+    --shadow-ink: inset 0 1px 0 hsl(36 45% 98% / 0.5), 0 1px 2px hsl(18 50% 12% / 0.1);
+
+    --transition-quill: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+}
+
+@layer base {
+  * { @apply border-border; }
+
+  html, body, #root {
+    height: 100%;
+    overscroll-behavior: none;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Crimson Text', Georgia, serif;
+    font-size: 18px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  h1, h2, h3, .font-display {
+    font-family: 'Cinzel', 'Trajan Pro', Georgia, serif;
+    letter-spacing: 0.04em;
+    color: hsl(var(--ink));
+  }
+
+  ::selection {
+    background: hsl(var(--gold) / 0.3);
+    color: hsl(var(--ink));
+  }
+}
+
+@layer components {
+  /* Parchment surface with subtle paper texture */
+  .parchment-surface {
+    background: var(--gradient-parchment);
+    position: relative;
+  }
+  .parchment-surface::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      radial-gradient(circle at 20% 30%, hsl(28 40% 35% / 0.04) 0%, transparent 40%),
+      radial-gradient(circle at 80% 70%, hsl(28 40% 35% / 0.05) 0%, transparent 45%),
+      radial-gradient(circle at 50% 90%, hsl(28 40% 35% / 0.03) 0%, transparent 50%);
+    pointer-events: none;
+    mix-blend-mode: multiply;
+  }
+
+  /* Manuscript border ornament */
+  .manuscript-border {
+    border: 1px solid hsl(var(--gold) / 0.4);
+    box-shadow:
+      0 0 0 1px hsl(var(--parchment)),
+      0 0 0 2px hsl(var(--gold) / 0.25),
+      var(--shadow-codex);
+    position: relative;
+  }
+  .manuscript-border::before,
+  .manuscript-border::after {
+    content: '✦';
+    position: absolute;
+    color: hsl(var(--gold));
+    font-size: 1.1rem;
+    line-height: 1;
+  }
+  .manuscript-border::before { top: -0.6rem; left: 50%; transform: translateX(-50%); background: hsl(var(--parchment)); padding: 0 0.6rem; }
+  .manuscript-border::after { bottom: -0.6rem; left: 50%; transform: translateX(-50%); background: hsl(var(--parchment)); padding: 0 0.6rem; }
+
+  /* Ornamental divider */
+  .ornament-divider {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    color: hsl(var(--gold));
+  }
+  .ornament-divider::before,
+  .ornament-divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, hsl(var(--gold) / 0.6), transparent);
+  }
+
+  /* Leonardo message bubble — manuscript style */
+  .leonardo-message {
+    font-family: 'Crimson Text', Georgia, serif;
+    font-size: 1.15rem;
+    line-height: 1.75;
+    color: hsl(var(--ink));
+    font-style: italic;
+  }
+  .leonardo-message::first-letter {
+    font-family: 'Cinzel', Georgia, serif;
+    font-size: 2.4em;
+    float: left;
+    line-height: 0.9;
+    padding: 0.1em 0.15em 0 0;
+    color: hsl(var(--accent));
+    font-style: normal;
+    font-weight: 600;
+  }
+
+  /* User message bubble */
+  .user-message {
+    background: hsl(var(--renaissance-blue));
+    color: hsl(var(--primary-foreground));
+    border-radius: 1.2rem 1.2rem 0.2rem 1.2rem;
+    padding: 0.9rem 1.25rem;
+    font-size: 1.05rem;
+    line-height: 1.5;
+    box-shadow: 0 4px 12px -4px hsl(var(--renaissance-blue) / 0.5);
+  }
+
+  /* Typewriter caret */
+  .typewriter-caret {
+    display: inline-block;
+    width: 0.55em;
+    height: 1.1em;
+    background: hsl(var(--accent));
+    margin-left: 2px;
+    vertical-align: text-bottom;
+    animation: caret-blink 0.9s steps(2) infinite;
+  }
+
+  /* Quill spinner */
+  .quill-loader {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: hsl(var(--sepia));
+    font-style: italic;
+  }
+}
+
+@layer utilities {
+  .text-ink { color: hsl(var(--ink)); }
+  .text-ink-soft { color: hsl(var(--ink-soft)); }
+  .text-sepia { color: hsl(var(--sepia)); }
+  .text-gold { color: hsl(var(--gold)); }
+  .bg-parchment { background-color: hsl(var(--parchment)); }
+  .bg-parchment-deep { background-color: hsl(var(--parchment-deep)); }
+
+  .shadow-codex { box-shadow: var(--shadow-codex); }
+  .shadow-quill { box-shadow: var(--shadow-quill); }
+
+  .animate-fade-in { animation: fade-in 0.6s ease-out both; }
+  .animate-fade-up { animation: fade-up 0.8s cubic-bezier(0.22, 1, 0.36, 1) both; }
+  .animate-ink-drop { animation: ink-drop 1.4s ease-in-out infinite; }
+  .animate-quill-write { animation: quill-write 2.2s ease-in-out infinite; }
+  .animate-float { animation: float 6s ease-in-out infinite; }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes caret-blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+@keyframes ink-drop {
+  0%, 100% { transform: translateY(0) scale(1); opacity: 0.6; }
+  50% { transform: translateY(4px) scale(1.1); opacity: 1; }
+}
+@keyframes quill-write {
+  0%, 100% { transform: rotate(-8deg) translateX(0); }
+  50% { transform: rotate(4deg) translateX(6px); }
+}
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
